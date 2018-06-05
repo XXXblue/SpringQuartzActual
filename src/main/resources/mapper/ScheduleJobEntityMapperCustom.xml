@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xjy.dao.ScheduleJobEntityMapperCustom" >
+    <select id="queryScheduleJobEntityCustom" parameterType="com.xjy.pojo.vo.ScheduleJobQueryVo" resultType="com.xjy.pojo.vo.ScheduleJobEntityCustom">
+    SELECT
+	job_id jobId,
+	bean_name beanName,
+	method_name methodName,
+	params,
+	cron_expression cronExpression,
+	STATUS,
+	(select info from dic_info where type_code = 's01' and dic_info.dic_code = schedule_job_entity.`status`) statusDic,
+	remark,
+	create_Time createTime
+    FROM
+	schedule_job_entity limit #{pageQuery.offset},#{pageQuery.limit}
+    </select>
+
+    <select id="queryScheduleJobEntityCustomCount" parameterType="com.xjy.pojo.vo.ScheduleJobQueryVo" resultType="int">
+        SELECT
+        count(*)
+        FROM
+        schedule_job_entity
+    </select>
+</mapper>
