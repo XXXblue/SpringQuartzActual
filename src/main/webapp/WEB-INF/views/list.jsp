@@ -58,6 +58,19 @@
                 var form = layui.form;
                 var laydate = layui.laydate;
 
+            var json_data={
+                "name" : "demographics",
+                "params" : [1 , 2, 3],
+                "items" : [ {"name" : "中文", "value" : 10 },
+                    {"name": "item2",  "value" : 20 }
+                ]
+            };
+            $.ajax({
+                url : '${baseurl}kk',
+                type : 'post',
+                data : JSON.stringify(json_data),
+                contentType : 'application/json;charset=utf-8'   //中文需要加上charset=utf-8才正确
+            });
 
             //表格展示模块start
             table.render({

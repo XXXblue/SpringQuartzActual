@@ -19,4 +19,6 @@ public interface ScheduleJobEntityMapper {
     int updateByPrimaryKey(ScheduleJobEntity record);
 
     void updateBatch(@Param("ids") List<Long> ids, @Param("status") int status);
+
+    List<ScheduleJobEntity> queryAllScheduleJobEntity();
 }

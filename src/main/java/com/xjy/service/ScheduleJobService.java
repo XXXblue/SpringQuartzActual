@@ -68,4 +68,6 @@ public interface ScheduleJobService {
 
 
 	ScheduleJobEntity selectScheduleJobEntityByJobId(Long jobId);
+
+    void clean();
 }

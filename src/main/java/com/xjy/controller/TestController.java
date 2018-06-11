@@ -15,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Map;
+
 
 /**
  * @Author: XBlue
@@ -95,5 +97,20 @@ public class TestController {
         mv.addObject("scheduleJobEntity",scheduleJobEntity);
         mv.addObject("flag",true);
         return mv;
+    }
+
+//    测试springmvc接收map
+    @RequestMapping("/kk")
+    @ResponseBody
+    public String result(@RequestBody Map<String, Object> params){
+        return "ok";
+    }
+
+//    定时清理任务
+    @RequestMapping("/time")
+    @ResponseBody
+    public String time(){
+        scheduleJobService.clean();
+        return "ok";
     }
 }

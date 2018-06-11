@@ -7,11 +7,13 @@ import com.xjy.pojo.ScheduleJobEntity;
 import com.xjy.pojo.vo.ScheduleJobEntityCustom;
 import com.xjy.pojo.vo.ScheduleJobQueryVo;
 import com.xjy.service.ScheduleJobService;
+import com.xjy.utils.CornUtil;
 import com.xjy.utils.ScheduleUtils;
 import org.quartz.Scheduler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 
 @Service("scheduleJobService")
@@ -109,6 +111,19 @@ public class ScheduleJobServiceImpl implements ScheduleJobService {
 	@Override
 	public ScheduleJobEntity selectScheduleJobEntityByJobId(Long jobId) {
 		return scheduleJobEntityMapper.selectByPrimaryKey(jobId);
+	}
+
+	@Override
+	public void clean() {
+		ScheduleJobEntity scheduleJobEntity = new ScheduleJobEntity();
+		scheduleJobEntity.setBeanName("cleanService");
+		scheduleJobEntity.setMethodName("clean");
+		Date date = CornUtil.getCronToDate("24 49 14 11 06 ? 2018");
+		scheduleJobEntity.setCronExpression(CornUtil.getCron(date));
+		scheduleJobEntity.setCreateTime(new Date());
+		scheduleJobEntity.setStatus("1");
+		scheduleJobEntityMapper.insertSelective(scheduleJobEntity);
+		ScheduleUtils.createScheduleJob(scheduler, scheduleJobEntity);
 	}
 
 	//这个是给上面那两个集群任务  关于多个job任务状态的更新

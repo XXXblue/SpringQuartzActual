@@ -134,4 +134,9 @@
       #{item,jdbcType=BIGINT}
     </foreach>
   </update>
+
+  <select id="queryAllScheduleJobEntity" resultMap="BaseResultMap" parameterType="map">
+    SELECT *
+    FROM  schedule_job_entity
+  </select>
 </mapper>
